@@ -1,0 +1,10 @@
+kalythos <- data.frame(x = c(20,35,45,55,70), n = rep(50,5), y = c(6,17,26,37,44))
+kalythos$Ymat <- cbind(kalythos$y, kalythos$n - kalythos$y)
+fmp <- glm(Ymat ~ x, family = binomial(link=probit), data = kalythos)
+fml <- glm(Ymat ~ x, family = binomial, data = kalythos)
+summary(fmp)
+summary(fml)
+ld50 <- function(b) -b[1]/b[2]
+ldp <- ld50(coef(fmp)) 
+ldl <- ld50(coef(fml))
+c(ldp, ldl)
